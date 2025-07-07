@@ -7,8 +7,8 @@ body:
     id: branch
     attributes:
       label: 브랜치 이름
-      description: 작업할 브랜치 이름을 명확하게 작성해주세요 (예: Docs/#-)
-      placeholder: 예: Docs/#-
+      description: 작업할 브랜치 이름을 명확하게 작성해주세요 예) Docs/#-
+      placeholder: 예) Docs/#-
     validations:
       required: true
   - type: input
@@ -19,8 +19,3 @@ body:
     id: details
     attributes:
       label: 문서 변경 상세 설명
-  - type: input
-    id: related
-    attributes:
-      label: 관련 이슈
-      placeholder: 예) #42
