@@ -7,8 +7,8 @@ body:
     id: branch
     attributes:
       label: 브랜치 이름
-      description: 작업할 브랜치 이름을 명확하게 작성해주세요 (예: Add/#-)
-      placeholder: 예: Add/#-
+      description: 작업할 브랜치 이름을 명확하게 작성해주세요 (예: Add/#)
+      placeholder: 예: Add/#
     validations:
       required: true
   - type: input
