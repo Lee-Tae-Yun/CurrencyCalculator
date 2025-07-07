@@ -11,6 +11,7 @@ body:
       placeholder: (예: Style/#?-)
     validations:
       required: true
+
   - type: input
     id: summary
     attributes:

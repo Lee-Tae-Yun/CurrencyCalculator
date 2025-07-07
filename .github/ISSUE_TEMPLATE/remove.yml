@@ -11,11 +11,13 @@ body:
       placeholder: (예: Remove/#?-)
     validations:
       required: true
+
   - type: input
     id: target
     attributes:
       label: 제거 대상
       placeholder: 어떤 파일/코드를 제거하나요?
+
   - type: textarea
     id: reason
     attributes:

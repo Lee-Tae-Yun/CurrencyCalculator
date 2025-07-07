@@ -11,17 +11,20 @@ body:
       placeholder: (예: Fix/#?-)
     validations:
       required: true
+
   - type: input
     id: summary
     attributes:
       label: 버그 요약
       placeholder: 어떤 문제가 발생했나요?
+
   - type: textarea
     id: steps
     attributes:
       label: 버그 재현 절차
       description: 버그를 재현하는 방법
       placeholder: 1. 앱 실행 → 2. 버튼 클릭 → 3. 에러 발생
+
   - type: textarea
     id: solution
     attributes:

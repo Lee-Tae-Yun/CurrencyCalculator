@@ -11,11 +11,13 @@ body:
       placeholder: (예: Refactor/#?-)
     validations:
       required: true
+
   - type: input
     id: summary
     attributes:
       label: 리팩토링 개요
       placeholder: 어떤 부분을 리팩토링하나요?
+
   - type: textarea
     id: reason
     attributes:

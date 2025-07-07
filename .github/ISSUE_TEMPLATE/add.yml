@@ -11,16 +11,19 @@ body:
       placeholder: (예: Add/#?-)
     validations:
       required: true
+
   - type: input
     id: summary
     attributes:
       label: 간단 요약
       placeholder: 어떤 기능/파일을 추가하나요?
+
   - type: textarea
     id: details
     attributes:
       label: 세부 설명
       description: 추가된 파일의 상세 설명
+
   - type: input
     id: related
     attributes:
