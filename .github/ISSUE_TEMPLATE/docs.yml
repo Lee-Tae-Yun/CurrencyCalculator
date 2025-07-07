@@ -15,6 +15,7 @@ body:
     id: summary
     attributes:
       label: 간단 요약
+      placeholder: 어떤 문서를 작업했나요?
   - type: textarea
     id: details
     attributes:

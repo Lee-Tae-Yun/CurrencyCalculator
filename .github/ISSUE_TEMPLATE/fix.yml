@@ -15,7 +15,8 @@ body:
     id: summary
     attributes:
       label: 간단 요약
+      placeholder: 어떤 버그를 수정하나요?
   - type: textarea
     id: details
     attributes:
-      label: 수정한 버그의 상세 설명
+      label: 수정하는 버그의 상세 설명
