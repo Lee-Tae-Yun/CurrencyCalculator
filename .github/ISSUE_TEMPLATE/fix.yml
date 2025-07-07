@@ -1,32 +1,26 @@
-name: Fix
-description: 버그를 수정할 때 사용
-title: "Fix: "
+name: 🚨 Fix
+description: 버그 수정
+title: "🚨 Fix: "
 labels: ["Fix"]
 body:
   - type: input
     id: branch
     attributes:
       label: 브랜치 이름
-      description: 작업할 브랜치 이름을 명확하게 작성해주세요 (예: Fix/#?-)
-      placeholder: (예: Fix/#?-)
+      description: 작업할 브랜치 이름을 명확하게 작성해주세요 (예: Fix/#-)
+      placeholder: 예: Fix/#-
     validations:
       required: true
-
   - type: input
     id: summary
     attributes:
-      label: 버그 요약
-      placeholder: 어떤 문제가 발생했나요?
-
+      label: 간단 요약
   - type: textarea
-    id: steps
+    id: details
     attributes:
-      label: 버그 재현 절차
-      description: 버그를 재현하는 방법
-      placeholder: 1. 앱 실행 → 2. 버튼 클릭 → 3. 에러 발생
-
-  - type: textarea
-    id: solution
+      label: 수정한 버그의 상세 설명
+  - type: input
+    id: related
     attributes:
-      label: 해결 방법
-      placeholder: 어떻게 해결했는지 설명해 주세요
+      label: 관련 이슈
+      placeholder: 예) #42

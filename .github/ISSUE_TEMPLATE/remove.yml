@@ -1,25 +1,22 @@
-name: Remove
-description: 불필요한 파일, 코드, 의존성 등을 제거할 때
-title: "Remove: "
+name: 🗑️ Remove
+description: 불필요한 파일/코드 제거
+title: "🗑️ Remove: "
 labels: ["Remove"]
 body:
   - type: input
     id: branch
     attributes:
       label: 브랜치 이름
-      description: 작업할 브랜치 이름을 명확하게 작성해주세요 (예: Remove/#?-)
-      placeholder: (예: Remove/#?-)
+      description: 작업할 브랜치 이름을 명확하게 작성해주세요 (예: Remove/#-)
+      placeholder: 예: Remove/#-
     validations:
       required: true
-
   - type: input
-    id: target
-    attributes:
-      label: 제거 대상
-      placeholder: 어떤 파일/코드를 제거하나요?
-
+    id: summary
   - type: textarea
-    id: reason
+    id: details
+  - type: input
+    id: related
     attributes:
-      label: 제거 이유
-      placeholder: 왜 제거하나요? 다른 코드와의 충돌, 불필요한 코드 등
+      label: 관련 이슈
+      placeholder: 예) #42

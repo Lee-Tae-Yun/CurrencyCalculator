@@ -1,25 +1,22 @@
-name: Performance
-description: 성능을 개선할 때 사용
-title: "Perf: "
+name: 🚀 Perf
+description: 성능 개선
+title: "🚀 Perf: "
 labels: ["Perf"]
 body:
   - type: input
     id: branch
     attributes:
       label: 브랜치 이름
-      description: 작업할 브랜치 이름을 명확하게 작성해주세요 (예: Perf/#?-)
-      placeholder: (예: `Perf/#?-`)
+      description: 작업할 브랜치 이름을 명확하게 작성해주세요 (예: Perf/#-
+      placeholder: 예: Perf/#-
     validations:
       required: true
-
   - type: input
     id: summary
-    attributes:
-      label: 개선 대상
-      placeholder: 어떤 부분의 성능을 개선하나요?
-
   - type: textarea
-    id: result
+    id: details
+  - type: input
+    id: related
     attributes:
-      label: 기대 효과
-      placeholder: 예) 렌더링 시간 단축, API 호출 속도 개선 등
+      label: 관련 이슈
+      placeholder: 예) #42

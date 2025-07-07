@@ -1,33 +1,27 @@
-name: Add
+name: 📦 Add
 description: 새로운 파일이나 패키지 추가할 때
-title: "Add: "
+title: "📦 Add: "
 labels: ["Add"]
 body:
   - type: input
     id: branch
     attributes:
       label: 브랜치 이름
-      description: 작업할 브랜치 이름을 명확하게 작성해주세요 (예: Add/#?-)
-      placeholder: (예: Add/#?-)
+      description: 작업할 브랜치 이름을 명확하게 작성해주세요 (예: Add/#-)
+      placeholder: 예: Add/#-
     validations:
       required: true
-
   - type: input
     id: summary
     attributes:
       label: 간단 요약
       placeholder: 어떤 기능/파일을 추가하나요?
-
   - type: textarea
     id: details
     attributes:
       label: 세부 설명
-      description: 추가된 파일의 상세 설명
-
   - type: input
     id: related
     attributes:
       label: 관련 이슈
       placeholder: 예) #42
-    validations:
-      required: false

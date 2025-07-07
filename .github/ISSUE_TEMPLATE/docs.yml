@@ -1,25 +1,26 @@
-name: Documentation
-description: 문서 추가 또는 수정
-title: "Docs: "
+name: 📝 Docs
+description: 문서 관련 작업
+title: "📝 Docs: "
 labels: ["Docs"]
 body:
   - type: input
     id: branch
     attributes:
       label: 브랜치 이름
-      description: 작업할 브랜치 이름을 명확하게 작성해주세요 (예: Docs/#?-)
-      placeholder: (예: Docs/#?-)
+      description: 작업할 브랜치 이름을 명확하게 작성해주세요 (예: Docs/#-)
+      placeholder: 예: Docs/#-
     validations:
       required: true
-
   - type: input
     id: summary
     attributes:
-      label: 변경 내용
-      placeholder: 어떤 문서를 수정/추가했나요?
-      
+      label: 간단 요약
   - type: textarea
-    id: reason
+    id: details
     attributes:
-      label: 이유
-      placeholder: 이 문서를 수정하거나 추가한 이유는?
+      label: 문서 변경 상세 설명
+  - type: input
+    id: related
+    attributes:
+      label: 관련 이슈
+      placeholder: 예) #42
