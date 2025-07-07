@@ -1,8 +1,16 @@
 name: ✨ Feature
 description: 새로운 기능을 개발할 때 사용
-title: "✨ FEAT: "
+title: "✨ Feat: "
 labels: ["Feat"]
 body:
+  - type: input
+    id: branch
+    attributes:
+      label: 🔀 브랜치 이름
+      description: 작업할 브랜치 이름을 명확하게 작성해주세요 (예: `Feat/#?-`)
+      placeholder: (예: `Feat/#?-`)
+    validations:
+      required: true
   - type: input
     id: summary
     attributes:

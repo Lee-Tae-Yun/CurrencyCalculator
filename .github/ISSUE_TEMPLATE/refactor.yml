@@ -1,8 +1,16 @@
 name: 🔨 Refactor
 description: 기능은 동일하지만 내부 코드를 리팩토링할 때
-title: "🔨 REFACTOR: "
+title: "🔨 Refactor: "
 labels: ["Refactor"]
 body:
+  - type: input
+    id: branch
+    attributes:
+      label: 🔀 브랜치 이름
+      description: 작업할 브랜치 이름을 명확하게 작성해주세요 (예: `Refactor/#?-`)
+      placeholder: (예: `Refactor/#?-`)
+    validations:
+      required: true
   - type: input
     id: summary
     attributes:

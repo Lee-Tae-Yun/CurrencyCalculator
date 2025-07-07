@@ -1,8 +1,16 @@
 name: 💡 Chore
 description: 빌드, 설정, 패키지 관련 등 기타 작업
-title: "💡 CHORE: "
+title: "💡 Chore: "
 labels: ["Chore"]
 body:
+  - type: input
+    id: branch
+    attributes:
+      label: 🔀 브랜치 이름
+      description: 작업할 브랜치 이름을 명확하게 작성해주세요 (예: `Chore/#?-`)
+      placeholder: (예: `Chore/#?-`)
+    validations:
+      required: true
   - type: input
     id: summary
     attributes:

@@ -1,8 +1,16 @@
 name: 🎨 Style
 description: 코드 포맷, 스타일, 네이밍 등 UI/UX와 무관한 수정
-title: "🎨 STYLE: "
-labels: ["style"]
+title: "🎨 Style: "
+labels: ["Style"]
 body:
+  - type: input
+    id: branch
+    attributes:
+      label: 🔀 브랜치 이름
+      description: 작업할 브랜치 이름을 명확하게 작성해주세요 (예: `Style/#?-`)
+      placeholder: (예: `Style/#?-`)
+    validations:
+      required: true
   - type: input
     id: summary
     attributes:

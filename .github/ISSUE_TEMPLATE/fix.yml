@@ -1,8 +1,16 @@
 name: 🚨 Fix
 description: 버그를 수정할 때 사용
-title: "🚨 FIX: "
+title: "🚨 Fix: "
 labels: ["Fix"]
 body:
+  - type: input
+    id: branch
+    attributes:
+      label: 🔀 브랜치 이름
+      description: 작업할 브랜치 이름을 명확하게 작성해주세요 (예: `Fix/#?-`)
+      placeholder: (예: `Fix/#?-`)
+    validations:
+      required: true
   - type: input
     id: summary
     attributes:

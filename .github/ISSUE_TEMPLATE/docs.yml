@@ -1,8 +1,16 @@
 name: 📚 Documentation
 description: 문서 추가 또는 수정
-title: "📚 DOC: "
+title: "📚 Docs: "
 labels: ["Docs"]
 body:
+  - type: input
+    id: branch
+    attributes:
+      label: 🔀 브랜치 이름
+      description: 작업할 브랜치 이름을 명확하게 작성해주세요 (예: `Docs/#?-`)
+      placeholder: (예: `Docs/#?-`)
+    validations:
+      required: true
   - type: input
     id: summary
     attributes:
