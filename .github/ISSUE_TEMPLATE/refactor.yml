@@ -13,5 +13,11 @@ body:
       required: true
   - type: input
     id: summary
+    attributes:
+      label: 간단 요약
+      placeholder: 어떤 코드를 리팩토링하나요?
   - type: textarea
     id: details
+    attributes:
+      label: 상세 설명
+      description: 구조 개선 이유, 변경 방식 등을 명시해주세요.

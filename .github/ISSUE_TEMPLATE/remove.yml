@@ -13,5 +13,11 @@ body:
       required: true
   - type: input
     id: summary
+    attributes:
+      label: 삭제 내용 요약
+      placeholder: 어떤 코드를 삭제하나요?
   - type: textarea
     id: details
+    attributes:
+      label: 상세 설명
+      description: 왜 삭제되었는지, 의존성이 있는 모듈이 있는지 등을 작성해주세요.

@@ -13,5 +13,11 @@ body:
       required: true
   - type: input
     id: summary
+    attributes:
+      label: 정리한 스타일 내용
+      placeholder: 어떤 스타일 수정을 했나요?
   - type: textarea
     id: details
+    attributes:
+      label: 상세 설명
+      description: 포맷팅 도구 사용 여부, 전반적인 정리 내용 등을 간단히 작성해주세요.

@@ -13,5 +13,11 @@ body:
       required: true
   - type: input
     id: summary
+    attributes:
+      label: 성능 개선 요약
+      placeholder: 어떤 성능을 어떻게 개선하나요?
   - type: textarea
     id: details
+    attributes:
+      label: 상세 설명
+      description: 병목 지점, 개선 방식, 성능 비교 결과 등이 있다면 작성해주세요.
