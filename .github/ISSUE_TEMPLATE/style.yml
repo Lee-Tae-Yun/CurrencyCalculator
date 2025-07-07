@@ -1,0 +1,10 @@
+name: 🎨 Style
+description: 코드 포맷, 스타일, 네이밍 등 UI/UX와 무관한 수정
+title: "🎨 STYLE: "
+labels: ["style"]
+body:
+  - type: input
+    id: summary
+    attributes:
+      label: 스타일 변경 내용
+      placeholder: 어떤 스타일을 변경했나요?

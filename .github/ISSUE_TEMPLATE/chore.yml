@@ -1,0 +1,15 @@
+name: 💡 Chore
+description: 빌드, 설정, 패키지 관련 등 기타 작업
+title: "💡 CHORE: "
+labels: ["Chore"]
+body:
+  - type: input
+    id: summary
+    attributes:
+      label: 작업 개요
+      placeholder: 어떤 작업인가요? (예: 의존성 정리, Git 설정 등)
+  - type: textarea
+    id: context
+    attributes:
+      label: 작업 배경
+      description: 왜 이 작업을 해야 하나요?

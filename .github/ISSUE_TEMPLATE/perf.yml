@@ -1,0 +1,15 @@
+name: 🚀 Performance
+description: 성능을 개선할 때 사용
+title: "🚀 PERF: "
+labels: ["Perf"]
+body:
+  - type: input
+    id: summary
+    attributes:
+      label: 개선 대상
+      placeholder: 어떤 부분의 성능을 개선하나요?
+  - type: textarea
+    id: result
+    attributes:
+      label: 기대 효과
+      placeholder: 예) 렌더링 시간 단축, API 호출 속도 개선 등
