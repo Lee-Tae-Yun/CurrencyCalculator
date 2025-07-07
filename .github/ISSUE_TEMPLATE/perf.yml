@@ -1,6 +1,6 @@
-name: 🚀 Performance
+name: Performance
 description: 성능을 개선할 때 사용
-title: "🚀 Perf: "
+title: "Perf: "
 labels: ["Perf"]
 body:
   - type: input

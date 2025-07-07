@@ -1,6 +1,6 @@
-name: 📚 Documentation
+name: Documentation
 description: 문서 추가 또는 수정
-title: "📚 Docs: "
+title: "Docs: "
 labels: ["Docs"]
 body:
   - type: input

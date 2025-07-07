@@ -1,6 +1,6 @@
-name: 🚨 Fix
+name: Fix
 description: 버그를 수정할 때 사용
-title: "🚨 Fix: "
+title: "Fix: "
 labels: ["Fix"]
 body:
   - type: input

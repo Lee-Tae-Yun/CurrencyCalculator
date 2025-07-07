@@ -1,6 +1,6 @@
-name: 📦 Add
+name: Add
 description: 새로운 파일이나 패키지 추가할 때
-title: "📦 Add: "
+title: "Add: "
 labels: ["Add"]
 body:
   - type: input

@@ -1,6 +1,6 @@
-name: 💡 Chore
+name: Chore
 description: 빌드, 설정, 패키지 관련 등 기타 작업
-title: "💡 Chore: "
+title: "Chore: "
 labels: ["Chore"]
 body:
   - type: input

@@ -1,6 +1,6 @@
-name: 🗑 Remove
+name: Remove
 description: 불필요한 파일, 코드, 의존성 등을 제거할 때
-title: "🗑 Remove: "
+title: "Remove: "
 labels: ["Remove"]
 body:
   - type: input

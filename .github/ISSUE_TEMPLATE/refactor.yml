@@ -1,6 +1,6 @@
-name: 🔨 Refactor
+name: Refactor
 description: 기능은 동일하지만 내부 코드를 리팩토링할 때
-title: "🔨 Refactor: "
+title: "Refactor: "
 labels: ["Refactor"]
 body:
   - type: input
