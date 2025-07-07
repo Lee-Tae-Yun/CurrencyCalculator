@@ -8,7 +8,7 @@ body:
     attributes:
       label: 브랜치 이름
       description: 작업할 브랜치 이름을 명확하게 작성해주세요
-      placeholder: 예: Add/#1-View
+      placeholder: 예: Add/#1/View
     validations:
       required: true
   - type: input
