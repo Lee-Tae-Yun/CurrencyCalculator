@@ -15,7 +15,7 @@ body:
     id: summary
     attributes:
       label: 간단 요약
-      placeholder: 어떤 기능/파일을 추가하나요?
+      placeholder: 어떤 파일/패키지를 추가하나요?
   - type: textarea
     id: details
     attributes:
