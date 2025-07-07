@@ -1,38 +1,9 @@
 name: ✨ Feature
-description: 새로운 기능을 개발할 때 사용
-title: "✨ Feat: "
-labels: ["Feat"]
+description: A minimal feature request.
 body:
-  - type: input
-    id: branch
+  - type: textarea
+    id: feature-request
     attributes:
-      label: 🔀 브랜치 이름
-      description: 작업할 브랜치 이름을 명확하게 작성해주세요 (예: Feat/#?-)
-      placeholder: (예: Feat/#?-)
+      label: What is the feature you would like to see?
     validations:
       required: true
-
-  - type: input
-    id: summary
-    attributes:
-      label: 기능 요약
-      placeholder: 어떤 기능을 구현하나요?
-    validations:
-      required: false
-
-  - type: textarea
-    id: details
-    attributes:
-      label: 기능 설명
-      placeholder: 해당 기능의 작동 방식, UI 변화 등
-    validations:
-      required: false
-
-  - type: checkboxes
-    id: checklist
-    attributes:
-      label: 체크리스트
-      options:
-        - label: 기능 정의 완료
-        - label: UI/UX 고려됨
-        - label: 테스트 계획 있음
