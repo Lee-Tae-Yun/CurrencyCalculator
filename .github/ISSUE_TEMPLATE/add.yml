@@ -7,8 +7,8 @@ body:
     id: branch
     attributes:
       label: 🔀 브랜치 이름
-      description: 작업할 브랜치 이름을 명확하게 작성해주세요 (예: Add/#-)
-      placeholder: 예: Add/#-
+      description: 작업할 브랜치 이름을 명확하게 작성해주세요 "(예: Add/#?-)"
+      placeholder: "(예: Add/#?-)"
     validations:
       required: true
 
@@ -17,21 +17,17 @@ body:
     attributes:
       label: 간단 요약
       placeholder: 어떤 기능/파일을 추가하나요?
-    validations:
-      required: true
 
   - type: textarea
     id: details
     attributes:
       label: 세부 설명
-      description: 추가된 파일의 상세 설명 (선택)
-    validations:
-      required: false
+      description: 추가된 파일의 상세 설명
 
   - type: input
     id: related
     attributes:
       label: 관련 이슈
-      placeholder: 예: #42
+      placeholder: 예) #42
     validations:
       required: false
