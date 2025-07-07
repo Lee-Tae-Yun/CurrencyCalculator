@@ -20,8 +20,3 @@ body:
     id: details
     attributes:
       label: 세부 설명
-  - type: input
-    id: related
-    attributes:
-      label: 관련 이슈
-      placeholder: 예) #42
