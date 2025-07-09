@@ -194,5 +194,12 @@ struct CountryModel {
     "ZMW": "잠비아",
     "ZWL": "짐바브웨"
     ]
+}
 
+extension CurrencyModel {
+  var items: [CurrencyItem] {
+    rates
+      .map{ CurrencyItem(code: $0.key, rate: $0.value) }
+      .sorted { $0.code.lowercased() < $1.code.lowercased() }
+  }
 }

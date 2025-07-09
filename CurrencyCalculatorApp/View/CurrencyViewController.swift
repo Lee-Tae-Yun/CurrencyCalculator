@@ -30,7 +30,7 @@ class ViewController: UIViewController {
       switch result {
       case .success(let currency):
         DispatchQueue.main.async {
-          self.items = currency.rates.map { CurrencyItem(code: $0.key, rate: $0.value) }
+          self.items = currency.items
           self.currencyView.currencyTableView.reloadData()
         }
       case .failure(let error):
