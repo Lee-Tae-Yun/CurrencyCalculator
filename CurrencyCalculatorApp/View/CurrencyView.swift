@@ -58,7 +58,7 @@ class CurrencyView: UIView {
     }
   }
 
-  // MARK: - No Results Label 제약 설정
+  // MARK: -  emptyLabel 제약 설정
   private func emptyLabelConfigure() {
     emptyLabel.snp.makeConstraints {
       $0.centerX.equalTo(currencyTableView)
