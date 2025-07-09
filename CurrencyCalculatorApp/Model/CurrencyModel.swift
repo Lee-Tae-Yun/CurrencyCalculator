@@ -27,3 +27,4 @@ enum CurrencyBase: String {
   case usd = "USD"
   case krw = "KRW"
 }
+

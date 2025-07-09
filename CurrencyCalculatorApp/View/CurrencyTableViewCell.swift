@@ -13,10 +13,15 @@ class CurrencyTableViewCell: UITableViewCell {
   static let id = "CurrencyTableViewCell"
   
   private let codeLabel = UILabel().then {
-    $0.font = .systemFont(ofSize: 17, weight: .medium)
+    $0.font = .systemFont(ofSize: 15, weight: .bold)
   }
   private let rateLabel = UILabel().then {
-    $0.font = .systemFont(ofSize: 17, weight: .medium)
+    $0.font = .systemFont(ofSize: 15, weight: .bold)
+  }
+  private let countryLabel = UILabel().then {
+    $0.font = .systemFont(ofSize: 15, weight: .medium)
+    $0.text = "asd"
+    $0.textColor = .systemGray
   }
 
   override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -29,12 +34,17 @@ class CurrencyTableViewCell: UITableViewCell {
     fatalError("init(coder:) has not been implemented")
   }
   private func addViewUI() {
-    [codeLabel, rateLabel].forEach { contentView.addSubview($0) }
+    [codeLabel, rateLabel, countryLabel].forEach { contentView.addSubview($0) }
   }
   private func cellConstaints() {
     codeLabel.snp.makeConstraints {
+      $0.top.equalToSuperview().inset(5)
       $0.leading.equalToSuperview().offset(16)
-      $0.centerY.equalToSuperview()
+    }
+    countryLabel.snp.makeConstraints {
+      $0.top.equalTo(codeLabel.snp.bottom).offset(5)
+      $0.leading.equalToSuperview().inset(16)
+      
     }
     rateLabel.snp.makeConstraints {
       $0.trailing.equalToSuperview().inset(16)

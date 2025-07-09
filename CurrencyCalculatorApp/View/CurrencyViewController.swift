@@ -52,7 +52,7 @@ class ViewController: UIViewController {
     }
     // 테이블 뷰 셀의 높이 크기 지정.
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-      30
+      50
     }
   }
 
