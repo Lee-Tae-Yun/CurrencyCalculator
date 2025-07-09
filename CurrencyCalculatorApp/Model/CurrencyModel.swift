@@ -27,3 +27,11 @@ enum CurrencyBase: String {
   case usd = "USD"
   case krw = "KRW"
 }
+
+extension CurrencyModel {
+  var items: [CurrencyItem] {
+    rates
+      .map{ CurrencyItem(code: $0.key, rate: $0.value) }
+      .sorted { $0.code.lowercased() < $1.code.lowercased() }
+  }
+}
