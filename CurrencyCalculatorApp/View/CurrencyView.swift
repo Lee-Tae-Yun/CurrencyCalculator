@@ -17,12 +17,20 @@ class CurrencyView: UIView {
     $0.register(CurrencyTableViewCell.self, forCellReuseIdentifier: CurrencyTableViewCell.id)
   }
 
+  let emptyLabel = UILabel().then {
+    $0.text = "검색 결과가 없습니다"
+    $0.textAlignment = .center
+    $0.textColor = .systemGray
+    $0.isHidden = true
+  }
+
   override init(frame: CGRect) {
     super.init(frame: frame)
     backgroundColor = .systemBackground
     addViewUI()
     serchBarConfigure()
     tableViewConfigure()
+    emptyLabelConfigure()
   }
 
   required init?(coder: NSCoder) {
@@ -30,7 +38,7 @@ class CurrencyView: UIView {
   }
   // View에 서브뷰 추가
   private func addViewUI() {
-    [searchBar ,currencyTableView].forEach { addSubview($0) }
+    [searchBar ,currencyTableView, emptyLabel].forEach { addSubview($0) }
   }
 
   // MARK: - SearchBar 제약 설정
@@ -49,6 +57,13 @@ class CurrencyView: UIView {
       $0.bottom.equalToSuperview()
     }
   }
+
+  // MARK: - No Results Label 제약 설정
+  private func emptyLabelConfigure() {
+    emptyLabel.snp.makeConstraints {
+      $0.centerX.equalTo(currencyTableView)
+      $0.centerY.equalTo(currencyTableView)
+      $0.leading.trailing.equalTo(currencyTableView).inset(16)
+    }
+  }
 }
-
-

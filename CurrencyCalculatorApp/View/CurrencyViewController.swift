@@ -51,7 +51,7 @@ class ViewController: UIViewController {
 extension ViewController: UITableViewDelegate {
   // 셀을 선택했을 때
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-    print("선택한 항목: \(items[indexPath.row])")
+    print("선택한 항목: \(filteredItems[indexPath.row])")
   }
   // 셀의 높이
   func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -60,6 +60,10 @@ extension ViewController: UITableViewDelegate {
 }
 
 extension ViewController: UITableViewDataSource {
+  // 총 몇줄인지
+  func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    return filteredItems.count
+  }
   // 각셀에 어떤 데이터를 넣을껀지.
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     guard let cell = tableView.dequeueReusableCell(withIdentifier: CurrencyTableViewCell.id, for: indexPath) as? CurrencyTableViewCell else {
@@ -71,10 +75,6 @@ extension ViewController: UITableViewDataSource {
 
     cell.configureCell(code: item.code, rate: item.rate, country: countryName)
     return cell
-  }
-  // 총 몇줄인지
-  func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return filteredItems.count
   }
 }
 
@@ -91,5 +91,7 @@ extension ViewController: UISearchBarDelegate {
       }
     }
     currencyView.currencyTableView.reloadData()
+    
+    currencyView.emptyLabel.isHidden = !(filteredItems.isEmpty && !searchText.isEmpty)
   }
 }
