@@ -53,7 +53,7 @@ extension ViewController: UITableViewDelegate {
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     print("선택한 항목: \(items[indexPath.row])")
   }
-  // 테이블 뷰 셀의 높이 크기 지정.
+  // 셀의 높이
   func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
     60
   }
@@ -65,8 +65,10 @@ extension ViewController: UITableViewDataSource {
     guard let cell = tableView.dequeueReusableCell(withIdentifier: CurrencyTableViewCell.id, for: indexPath) as? CurrencyTableViewCell else {
       return UITableViewCell()
     }
+
     let item = filteredItems[indexPath.row]
     let countryName = CountryModel.countryList[item.code] ?? "국가명 없음"
+
     cell.configureCell(code: item.code, rate: item.rate, country: countryName)
     return cell
   }
@@ -77,6 +79,7 @@ extension ViewController: UITableViewDataSource {
 }
 
 extension ViewController: UISearchBarDelegate {
+  // 서치바에 입력한 텍스트가 변경될 때 호출
   func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
     if searchText.isEmpty {
       filteredItems = items
