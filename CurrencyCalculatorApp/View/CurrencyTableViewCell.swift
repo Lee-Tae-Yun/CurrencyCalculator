@@ -11,17 +11,20 @@ import SnapKit
 
 class CurrencyTableViewCell: UITableViewCell {
   static let id = "CurrencyTableViewCell"
-  
-  private let codeLabel = UILabel().then {
-    $0.font = .systemFont(ofSize: 15, weight: .bold)
+
+  private let countrycodeStackView = UIStackView().then {
+    $0.axis = .vertical
+    $0.spacing = 4
   }
-  private let rateLabel = UILabel().then {
-    $0.font = .systemFont(ofSize: 15, weight: .bold)
+  private let codeLabel = UILabel().then {
+    $0.font = .systemFont(ofSize: 16)
   }
   private let countryLabel = UILabel().then {
-    $0.font = .systemFont(ofSize: 15, weight: .medium)
-    $0.text = "asd"
+    $0.font = .systemFont(ofSize: 14, weight: .medium)
     $0.textColor = .systemGray
+  }
+  private let rateLabel = UILabel().then {
+    $0.font = .systemFont(ofSize: 16)
   }
 
   override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -34,26 +37,24 @@ class CurrencyTableViewCell: UITableViewCell {
     fatalError("init(coder:) has not been implemented")
   }
   private func addViewUI() {
-    [codeLabel, rateLabel, countryLabel].forEach { contentView.addSubview($0) }
+    [countrycodeStackView, rateLabel].forEach { contentView.addSubview($0) }
+    [codeLabel, countryLabel].forEach { countrycodeStackView.addArrangedSubview($0) }
   }
   private func cellConstaints() {
-    codeLabel.snp.makeConstraints {
-      $0.top.equalToSuperview().inset(5)
-      $0.leading.equalToSuperview().offset(16)
-    }
-    countryLabel.snp.makeConstraints {
-      $0.top.equalTo(codeLabel.snp.bottom).offset(5)
+    countrycodeStackView.snp.makeConstraints {
       $0.leading.equalToSuperview().inset(16)
-      
+      $0.centerY.equalToSuperview()
     }
     rateLabel.snp.makeConstraints {
+      $0.leading.greaterThanOrEqualTo(countrycodeStackView.snp.trailing).offset(16)
       $0.trailing.equalToSuperview().inset(16)
       $0.centerY.equalToSuperview()
     }
   }
 
-  func configureCell(code: String, rate: Double) {
+  func configureCell(code: String, rate: Double, country: String) {
     codeLabel.text = code
+    countryLabel.text = country
     rateLabel.text = String(format: "%.4f", rate)
   }
 }
