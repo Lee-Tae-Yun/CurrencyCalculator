@@ -12,6 +12,7 @@ class ViewController: UIViewController {
   private let currencyService = CurrencyService()
   private let currencyView = CurrencyView()
   private var items: [CurrencyItem] = []
+  private var filteredItems: [CurrencyItem] = []
   private var base = CurrencyBase.usd
 
   override func loadView() {
@@ -22,6 +23,7 @@ class ViewController: UIViewController {
     super.viewDidLoad()
     currencyView.currencyTableView.delegate = self
     currencyView.currencyTableView.dataSource = self
+    currencyView.searchBar.delegate = self
     loadData(for: base)
   }
 
@@ -31,6 +33,7 @@ class ViewController: UIViewController {
       case .success(let currency):
         DispatchQueue.main.async {
           self.items = currency.items
+          self.filteredItems = currency.items // 초기에 전체를 보여주기
           self.currencyView.currencyTableView.reloadData()
         }
       case .failure(let error):
@@ -48,24 +51,47 @@ class ViewController: UIViewController {
 extension ViewController: UITableViewDelegate {
   // 셀을 선택했을 때
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-    print("선택한 항목: \(items[indexPath.row])")
+    print("선택한 항목: \(filteredItems[indexPath.row])")
   }
-  // 테이블 뷰 셀의 높이 크기 지정.
+  // 셀의 높이
   func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
     60
   }
 }
 
 extension ViewController: UITableViewDataSource {
-  // 각셀에 어떤 데이터를 넣을껀지.
-  func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    guard let cell = tableView.dequeueReusableCell(withIdentifier: CurrencyTableViewCell.id, for: indexPath) as? CurrencyTableViewCell else { return UITableViewCell() }
-    let item = items[indexPath.row]
-    cell.configureCell(code: item.code, rate: item.rate, country: CountryModel.countryList[item.code] ?? "국가명 없음")
-    return cell
-  }
   // 총 몇줄인지
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return items.count
+    return filteredItems.count
+  }
+  // 각셀에 어떤 데이터를 넣을껀지.
+  func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    guard let cell = tableView.dequeueReusableCell(withIdentifier: CurrencyTableViewCell.id, for: indexPath) as? CurrencyTableViewCell else {
+      return UITableViewCell()
+    }
+
+    let item = filteredItems[indexPath.row]
+    let countryName = CountryModel.countryList[item.code] ?? "국가명 없음"
+
+    cell.configureCell(code: item.code, rate: item.rate, country: countryName)
+    return cell
+  }
+}
+
+extension ViewController: UISearchBarDelegate {
+  // 서치바에 입력한 텍스트가 변경될 때 호출
+  func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+    if searchText.isEmpty {
+      filteredItems = items
+    } else {
+      filteredItems = items.filter { item in
+        let codeMatch = item.code.lowercased().contains(searchText.lowercased())
+        let countryMatch = CountryModel.countryList[item.code]?.contains(searchText) ?? false
+        return codeMatch || countryMatch
+      }
+    }
+    currencyView.currencyTableView.reloadData()
+    
+    currencyView.emptyLabel.isHidden = !(filteredItems.isEmpty && !searchText.isEmpty)
   }
 }
