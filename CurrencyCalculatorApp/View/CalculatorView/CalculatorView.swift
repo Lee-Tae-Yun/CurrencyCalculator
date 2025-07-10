@@ -29,7 +29,7 @@ class CalculatorView: UIView {
     $0.borderStyle = .roundedRect
     $0.keyboardType = .decimalPad
     $0.textAlignment = .center
-    $0.placeholder = "금액을 입력하세요"
+    $0.placeholder = "달러(USD)를 입력하세요"
   }
   let convertButton = UIButton(type: .system).then {
     $0.setTitle("환율 계산", for: .normal)
