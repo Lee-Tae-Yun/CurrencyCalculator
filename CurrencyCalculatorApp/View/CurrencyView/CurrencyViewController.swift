@@ -54,6 +54,9 @@ extension ViewController: UITableViewDelegate {
     // 셀 선택 시 계산기 뷰컨트롤러 생성
     let calculatorVC = CalculatorViewController()
 
+    calculatorVC.countryCode = filteredItems[indexPath.row].code
+    calculatorVC.countryName = CountryModel.countryList[filteredItems[indexPath.row].code] ?? "국가명 없음"
+    calculatorVC.rate = filteredItems[indexPath.row].rate
     // navigationController가 있다면 push로 전환
     navigationController?.pushViewController(calculatorVC, animated: true)
   }

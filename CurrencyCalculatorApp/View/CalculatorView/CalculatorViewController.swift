@@ -8,6 +8,9 @@ import UIKit
 
 class CalculatorViewController: UIViewController {
   let calculator = CalculatorView()
+  var countryCode: String?
+  var countryName: String?
+  var rate: Double?
 
   override func loadView() {
     view = calculator
@@ -15,6 +18,6 @@ class CalculatorViewController: UIViewController {
 
   override func viewDidLoad() {
     super.viewDidLoad()
-    
+    calculator.calcuatorConfigure(code: countryCode ?? "국가코드 없음", country: countryName ?? "국가명 없음")
   }
 }
