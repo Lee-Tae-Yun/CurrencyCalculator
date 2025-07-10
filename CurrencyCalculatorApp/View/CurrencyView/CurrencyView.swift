@@ -15,6 +15,7 @@ class CurrencyView: UIView {
   // 통화 리스트를 보여줄 테이블뷰
   lazy var currencyTableView = UITableView().then {
     $0.register(CurrencyTableViewCell.self, forCellReuseIdentifier: CurrencyTableViewCell.id)
+    $0.showsVerticalScrollIndicator = false
   }
 
   let emptyLabel = UILabel().then {

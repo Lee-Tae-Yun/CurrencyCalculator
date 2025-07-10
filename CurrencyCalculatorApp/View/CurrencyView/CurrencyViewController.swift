@@ -7,7 +7,6 @@
 
 import UIKit
 
-
 class ViewController: UIViewController {
   private let currencyService = CurrencyService()
   private let currencyView = CurrencyView()
@@ -52,6 +51,19 @@ extension ViewController: UITableViewDelegate {
   // 셀을 선택했을 때
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     print("선택한 항목: \(filteredItems[indexPath.row])")
+    // 셀 선택 시 계산기 뷰컨트롤러 생성
+    let calculatorVC = CalculatorViewController()
+
+    calculatorVC.countryCode = filteredItems[indexPath.row].code
+    calculatorVC.countryName = CountryModel.countryList[filteredItems[indexPath.row].code] ?? "국가명 없음"
+    calculatorVC.rate = filteredItems[indexPath.row].rate
+
+    // Back버튼 설정
+    let backBarButton = UIBarButtonItem(title: "환율 정보", style: .plain, target: nil, action: nil)
+    navigationItem.backBarButtonItem = backBarButton
+
+    // navigationController가 있다면 push로 전환
+    navigationController?.pushViewController(calculatorVC, animated: true)
   }
   // 셀의 높이
   func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -91,7 +103,7 @@ extension ViewController: UISearchBarDelegate {
       }
     }
     currencyView.currencyTableView.reloadData()
-    
+
     currencyView.emptyLabel.isHidden = !(filteredItems.isEmpty && !searchText.isEmpty)
   }
 }
