@@ -9,6 +9,10 @@ import SnapKit
 import Then
 
 class CalculatorView: UIView {
+  private let titleLabel = UILabel().then {
+    $0.font = .systemFont(ofSize: 30, weight: .bold)
+    $0.text = "환율 계산기"
+  }
   private let codecountryStrackView = UIStackView().then {
     $0.spacing = 4
     $0.axis = .vertical
@@ -54,31 +58,36 @@ class CalculatorView: UIView {
   }
 
   private func addViewUI() {
-    [codecountryStrackView, amountTextField, convertButton, resultLabel].forEach { addSubview($0) }
+    [titleLabel, codecountryStrackView, amountTextField, convertButton, resultLabel].forEach { addSubview($0) }
     [codeLabel, countryLabel].forEach { codecountryStrackView.addArrangedSubview($0)}
   }
 
   private func setConfigureUI() {
+    titleLabel.snp.makeConstraints {
+      $0.top.equalTo(safeAreaLayoutGuide)
+      $0.leading.equalTo(safeAreaLayoutGuide).inset(24)
+    }
+
     codecountryStrackView.snp.makeConstraints {
-      $0.top.equalTo(safeAreaLayoutGuide).inset(32)
+      $0.top.equalTo(titleLabel.snp.bottom).offset(32)
       $0.centerX.equalToSuperview()
     }
 
     amountTextField.snp.makeConstraints {
       $0.top.equalTo(codecountryStrackView.snp.bottom).offset(32)
-      $0.leading.trailing.equalToSuperview().inset(24)
+      $0.leading.trailing.equalTo(safeAreaLayoutGuide).inset(24)
       $0.height.equalTo(44)
     }
 
     convertButton.snp.makeConstraints {
       $0.top.equalTo(amountTextField.snp.bottom).offset(24)
-      $0.leading.trailing.equalToSuperview().inset(24)
+      $0.leading.trailing.equalTo(safeAreaLayoutGuide).inset(24)
       $0.height.equalTo(44)
     }
 
     resultLabel.snp.makeConstraints {
       $0.top.equalTo(convertButton.snp.bottom).offset(32)
-      $0.leading.trailing.equalToSuperview().inset(24)
+      $0.leading.trailing.equalTo(safeAreaLayoutGuide).inset(24)
     }
   }
 
