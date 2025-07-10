@@ -102,8 +102,7 @@ extension ViewController: UISearchBarDelegate {
         return codeMatch || countryMatch
       }
     }
-    currencyView.currencyTableView.reloadData()
-
     currencyView.emptyLabel.isHidden = !(filteredItems.isEmpty && !searchText.isEmpty)
+    currencyView.currencyTableView.reloadData()
   }
 }
