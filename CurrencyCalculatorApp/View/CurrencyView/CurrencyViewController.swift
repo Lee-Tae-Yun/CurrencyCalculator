@@ -57,6 +57,11 @@ extension ViewController: UITableViewDelegate {
     calculatorVC.countryCode = filteredItems[indexPath.row].code
     calculatorVC.countryName = CountryModel.countryList[filteredItems[indexPath.row].code] ?? "국가명 없음"
     calculatorVC.rate = filteredItems[indexPath.row].rate
+
+    // Back버튼 설정
+    let backBarButton = UIBarButtonItem(title: "환율 정보", style: .plain, target: nil, action: nil)
+    navigationItem.backBarButtonItem = backBarButton
+
     // navigationController가 있다면 push로 전환
     navigationController?.pushViewController(calculatorVC, animated: true)
   }
