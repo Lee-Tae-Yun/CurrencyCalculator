@@ -25,20 +25,20 @@ class CalculatorView: UIView {
     $0.font = .systemFont(ofSize: 16)
     $0.textColor = .systemGray
   }
-  private let amountTextField = UITextField().then {
+  let amountTextField = UITextField().then {
     $0.borderStyle = .roundedRect
     $0.keyboardType = .decimalPad
     $0.textAlignment = .center
-    $0.placeholder = "금액을 입력하세요"
+    $0.placeholder = "달러(USD)를 입력하세요"
   }
-  private let convertButton = UIButton(type: .system).then {
+  let convertButton = UIButton(type: .system).then {
     $0.setTitle("환율 계산", for: .normal)
     $0.titleLabel?.font = .systemFont(ofSize: 16, weight: .medium)
     $0.backgroundColor = .systemBlue
     $0.layer.cornerRadius = 8
     $0.tintColor = .white
   }
-  private let resultLabel = UILabel().then {
+  let resultLabel = UILabel().then {
     $0.text = "계산 결과가 여기에 표시됩니다."
     $0.textAlignment = .center
     $0.font = .systemFont(ofSize: 20, weight: .medium)
