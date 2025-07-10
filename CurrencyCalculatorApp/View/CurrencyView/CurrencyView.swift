@@ -8,6 +8,10 @@ import UIKit
 import Then
 
 class CurrencyView: UIView {
+  private let titleLabel = UILabel().then {
+    $0.font = .systemFont(ofSize: 30, weight: .bold)
+    $0.text = "환율 정보"
+  }
   // 검색바 통화 코드 또는 국가명 입력용
   let searchBar = UISearchBar().then {
     $0.placeholder = "통화 검색"
@@ -29,9 +33,7 @@ class CurrencyView: UIView {
     super.init(frame: frame)
     backgroundColor = .systemBackground
     addViewUI()
-    serchBarConfigure()
-    tableViewConfigure()
-    emptyLabelConfigure()
+    setConfigureUI()
   }
 
   required init?(coder: NSCoder) {
@@ -39,28 +41,27 @@ class CurrencyView: UIView {
   }
   // View에 서브뷰 추가
   private func addViewUI() {
-    [searchBar ,currencyTableView, emptyLabel].forEach { addSubview($0) }
+    [titleLabel, searchBar ,currencyTableView, emptyLabel].forEach { addSubview($0) }
   }
 
-  // MARK: - SearchBar 제약 설정
-  private func serchBarConfigure() {
-    searchBar.snp.makeConstraints {
+  // MARK: - 제약 설정
+  private func setConfigureUI() {
+    titleLabel.snp.makeConstraints {
       $0.top.equalTo(safeAreaLayoutGuide)
+      $0.leading.equalTo(safeAreaLayoutGuide).inset(24)
+    }
+
+    searchBar.snp.makeConstraints {
+      $0.top.equalTo(titleLabel.snp.bottom).offset(8)
       $0.leading.trailing.equalToSuperview()
     }
-  }
 
-  // MARK: - TableView 제약 설정
-  private func tableViewConfigure() {
     currencyTableView.snp.makeConstraints {
       $0.top.equalTo(searchBar.snp.bottom).offset(8)
       $0.leading.trailing.equalTo(safeAreaLayoutGuide)
       $0.bottom.equalToSuperview()
     }
-  }
 
-  // MARK: -  emptyLabel 제약 설정
-  private func emptyLabelConfigure() {
     emptyLabel.snp.makeConstraints {
       $0.centerX.equalTo(currencyTableView)
       $0.centerY.equalTo(currencyTableView)
@@ -68,3 +69,4 @@ class CurrencyView: UIView {
     }
   }
 }
+
