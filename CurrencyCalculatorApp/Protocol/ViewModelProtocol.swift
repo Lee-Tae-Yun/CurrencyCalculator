@@ -1,10 +1,7 @@
 //
-//  CalculatorViewModel.swift
+//  ViewModelProtocol.swift
 //  CurrencyCalculatorApp
 //
 //  Created by 이태윤 on 7/10/25.
 //
 
-class CalculatorViewModel {
-  
-}
