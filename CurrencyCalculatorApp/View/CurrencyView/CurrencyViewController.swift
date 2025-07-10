@@ -13,11 +13,11 @@ class ViewController: UIViewController {
   private var items: [CurrencyItem] = []
   private var filteredItems: [CurrencyItem] = []
   private var base = CurrencyBase.usd
-  
+
   override func loadView() {
     view = currencyView
   }
-  
+
   override func viewDidLoad() {
     super.viewDidLoad()
     currencyView.currencyTableView.delegate = self
@@ -25,7 +25,7 @@ class ViewController: UIViewController {
     currencyView.searchBar.delegate = self
     loadData(for: base)
   }
-  
+
   func loadData(for base: CurrencyBase) {
     currencyService.fetchCurrency(base: base) { result in
       switch result {
@@ -53,7 +53,7 @@ extension ViewController: UITableViewDelegate {
     print("선택한 항목: \(filteredItems[indexPath.row])")
     // 셀 선택 시 계산기 뷰컨트롤러 생성
     let calculatorVC = CalculatorViewController()
-    
+
     // navigationController가 있다면 push로 전환
     navigationController?.pushViewController(calculatorVC, animated: true)
   }
@@ -73,10 +73,10 @@ extension ViewController: UITableViewDataSource {
     guard let cell = tableView.dequeueReusableCell(withIdentifier: CurrencyTableViewCell.id, for: indexPath) as? CurrencyTableViewCell else {
       return UITableViewCell()
     }
-    
+
     let item = filteredItems[indexPath.row]
     let countryName = CountryModel.countryList[item.code] ?? "국가명 없음"
-    
+
     cell.configureCell(code: item.code, rate: item.rate, country: countryName)
     return cell
   }
@@ -95,7 +95,7 @@ extension ViewController: UISearchBarDelegate {
       }
     }
     currencyView.currencyTableView.reloadData()
-    
+
     currencyView.emptyLabel.isHidden = !(filteredItems.isEmpty && !searchText.isEmpty)
   }
 }

@@ -7,9 +7,14 @@
 import UIKit
 
 class CalculatorViewController: UIViewController {
+  let calculator = CalculatorView()
+
+  override func loadView() {
+    view = calculator
+  }
+
   override func viewDidLoad() {
     super.viewDidLoad()
-    view.backgroundColor = .red
-    title = "계산기"
+    
   }
 }
