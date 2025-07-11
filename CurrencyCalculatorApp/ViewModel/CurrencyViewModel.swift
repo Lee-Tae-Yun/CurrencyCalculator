@@ -9,8 +9,9 @@ final class CurrencyViewModel: ViewModelProtocol {
   enum Action {
     case loadData
     case filter(searchText: String)
+    case toggleFavorite(String)
   }
-  
+
   struct State {
     var items: [CurrencyItem] = []
     var filteredItems: [CurrencyItem] = []
@@ -19,22 +20,23 @@ final class CurrencyViewModel: ViewModelProtocol {
     var base = CurrencyBase.usd
     var errorMessage: String? = nil
     var isEmptyHidden: Bool = true
-    var isFavorite: Bool = false
   }
-  
+
   var onStateChanged: ((State) -> Void)?
   private(set) var state = State()
   private let currencyService = CurrencyService()
-  
+
   func action(_ action: Action) {
     switch action {
     case .loadData:
       loadData()
     case .filter(let searchText):
       filter(searchText: searchText)
+    case .toggleFavorite(let code):
+      toggleFavorite(code: code)
     }
   }
-  
+
   private func loadData() {
     currencyService.fetchCurrency(base: state.base) { result in
       switch result {
@@ -49,19 +51,51 @@ final class CurrencyViewModel: ViewModelProtocol {
       }
     }
   }
-  
+
   private func filter(searchText: String) {
     if searchText.isEmpty {
-      self.state.filteredItems = self.state.items
+      // 전체 보기일 때는 즐겨찾기 제외
+      state.filteredItems = state.items.filter { item in
+        !state.favoriteItems.contains(where: { $0.code == item.code })
+      }
     } else {
-      self.state.filteredItems = self.state.items.filter { item in
+      state.filteredItems = state.items.filter { item in
         let codeMatch = item.code.lowercased().contains(searchText.lowercased())
         let countryMatch = item.currencyName.contains(searchText)
         return codeMatch || countryMatch
       }
     }
-    self.state.isEmptyHidden = !(self.state.filteredItems.isEmpty && !searchText.isEmpty)
-    self.onStateChanged?(self.state)
+    state.isEmptyHidden = !(state.filteredItems.isEmpty && !searchText.isEmpty)
+    onStateChanged?(self.state)
+  }
+
+  private func toggleFavorite(code: String) {
+    // 즐겨찾기 제거
+    if let favIndex = state.favoriteItems.firstIndex(where: { $0.code == code }) {
+      var removedItem = state.favoriteItems[favIndex]
+      removedItem.isFavorite = false
+      state.favoriteItems.remove(at: favIndex)
+
+      if let itemIndex = state.items.firstIndex(where: { $0.code == code }) {
+        state.items[itemIndex] = removedItem
+      }
+    }
+    // 즐겨찾기 추가
+    else if let itemIndex = state.items.firstIndex(where: { $0.code == code }) {
+      var item = state.items[itemIndex]
+      item.isFavorite = true
+      state.items[itemIndex] = item
+      state.favoriteItems.append(item)
+    }
+
+    // 즐겨찾기 정렬
+    state.favoriteItems.sort { $0.code < $1.code }
+
+    // 필터링된 목록 업데이트
+    state.filteredItems = state.items.filter { item in
+      !state.favoriteItems.contains(where: { $0.code == item.code })
+    }
+
+    onStateChanged?(state)
   }
 }
-

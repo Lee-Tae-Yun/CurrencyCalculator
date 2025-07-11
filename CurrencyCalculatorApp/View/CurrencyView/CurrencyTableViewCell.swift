@@ -11,6 +11,7 @@ import SnapKit
 
 class CurrencyTableViewCell: UITableViewCell {
   static let id = "CurrencyTableViewCell"
+  var favoriteButtonTapped: (() -> Void)?
 
   private let countrycodeStackView = UIStackView().then {
     $0.axis = .vertical
@@ -27,7 +28,7 @@ class CurrencyTableViewCell: UITableViewCell {
     $0.font = .systemFont(ofSize: 16)
   }
 
-  private let favoriteButton = UIButton().then {
+  private let favoriteButton = UIButton(type: .system).then {
     $0.tintColor = .systemBlue
   }
 
@@ -35,6 +36,7 @@ class CurrencyTableViewCell: UITableViewCell {
     super.init(style: style, reuseIdentifier: reuseIdentifier)
     addViewUI()
     cellConstaints()
+    favoriteButton.addTarget(self, action: #selector(favoriteButtonDidTap), for: .touchUpInside)
   }
 
   required init?(coder: NSCoder) {
@@ -68,4 +70,9 @@ class CurrencyTableViewCell: UITableViewCell {
     let starImage = isFavorite ? "star.fill" : "star"
     favoriteButton.setImage(UIImage(systemName: starImage), for: .normal)
   }
+
+  @objc private func favoriteButtonDidTap() {
+    favoriteButtonTapped?() // 외부로 신호만 보냄
+  }
+
 }

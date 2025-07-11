@@ -98,13 +98,20 @@ extension ViewController: UITableViewDataSource {
     }
 
     let item = (indexPath.section == 0) ? self.currencyVM.state.favoriteItems[indexPath.row] : currencyVM.state.filteredItems[indexPath.row]
-
+    // 셀 데이터
     cell.configureCell(
       code: item.code,
       rate: item.rate,
       country: item.currencyName,
-      isFavorite: currencyVM.state.isFavorite
+      isFavorite: item.isFavorite
     )
+    // 즐겨찾기 버튼을 눌렀을때 처리
+    cell.favoriteButtonTapped = { [weak self] in
+      guard let self else { return }
+      let item = (indexPath.section == 0) ? self.currencyVM.state.favoriteItems[indexPath.row] : self.currencyVM.state.filteredItems[indexPath.row]
+      self.currencyVM.action(.toggleFavorite(item.code))
+    }
+
     return cell
   }
 }
