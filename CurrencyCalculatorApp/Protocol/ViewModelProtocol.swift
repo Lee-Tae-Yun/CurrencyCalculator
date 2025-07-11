@@ -8,7 +8,7 @@
 protocol ViewModelProtocol {
   associatedtype Action
   associatedtype State
-
+  
   func action(_ action: Action)
   var state: State { get }
 }

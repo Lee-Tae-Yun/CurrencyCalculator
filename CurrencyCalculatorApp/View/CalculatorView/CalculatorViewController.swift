@@ -9,20 +9,20 @@ import UIKit
 class CalculatorViewController: UIViewController {
   let calculator = CalculatorView()
   let calculatorVM: CalculatorViewModel
-
+  
   init(viewModel: CalculatorViewModel) {
     self.calculatorVM = viewModel
     super.init(nibName: nil, bundle: nil)
   }
-
+  
   required init?(coder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
-
+  
   override func loadView() {
     view = calculator
   }
-
+  
   override func viewDidLoad() {
     super.viewDidLoad()
     bindViewModel()
@@ -42,7 +42,7 @@ class CalculatorViewController: UIViewController {
       calculator.resultLabel.text = calculatorVM.state.result
     }
   }
-
+  
   private func showAlert(message: String) {
     let alert = UIAlertController(title: "입력 오류", message: message, preferredStyle: .alert)
     alert.addAction(UIAlertAction(title: "확인", style: .default))

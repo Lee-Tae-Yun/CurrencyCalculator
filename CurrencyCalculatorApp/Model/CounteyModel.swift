@@ -170,5 +170,5 @@ struct CountryModel {
     "ZAR": "남아프리카 공화국",
     "ZMW": "잠비아",
     "ZWL": "짐바브웨"
-    ]
+  ]
 }

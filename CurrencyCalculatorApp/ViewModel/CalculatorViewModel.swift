@@ -29,8 +29,8 @@ class CalculatorViewModel: ViewModelProtocol {
 
   func action(_ action: Action) {
     switch action {
-      case .calculate(let text):
-        calculate(text: text)
+    case .calculate(let text):
+      calculate(text: text)
     }
   }
 
@@ -39,7 +39,7 @@ class CalculatorViewModel: ViewModelProtocol {
     guard let text = text, !text.isEmpty else {
       self.state.message = "금액을 입력해주세요"
       onStateChanged?(state)
-      return 
+      return
     }
     guard let amount = Double(text) else {
       self.state.message = "올바른 숫자를 입력해주세요"

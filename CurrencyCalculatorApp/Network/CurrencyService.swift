@@ -9,10 +9,10 @@ import Alamofire
 
 final class CurrencyService {
   let URL = "https://open.er-api.com/v6/latest/"
-
+  
   func fetchCurrency(base: CurrencyBase, completion: @escaping (Result<CurrencyModel, AFError>) -> Void) {
     let url = URL + base.rawValue
-
+    
     AF.request(url)
       .validate()
       .responseDecodable(of: CurrencyModel.self) { response in
