@@ -47,6 +47,8 @@ class ViewController: UIViewController {
 extension ViewController: UITableViewDelegate {
   // 셀을 선택했을 때
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    // 셀 선택됐을때 회색에서 다시 돌아오기
+    tableView.deselectRow(at: indexPath, animated: true)
     print("선택한 항목: \(currencyVM.state.filteredItems[indexPath.row])")
     // 셀 선택 시 계산기 뷰 모델 생성
     let item = currencyVM.state.filteredItems[indexPath.row]
@@ -95,9 +97,14 @@ extension ViewController: UITableViewDataSource {
       return UITableViewCell()
     }
 
-    let item = (indexPath.section == 0) ? currencyVM.state.favoriteItems[indexPath.row] : currencyVM.state.filteredItems[indexPath.row]
+    let item = (indexPath.section == 0) ? self.currencyVM.state.favoriteItems[indexPath.row] : currencyVM.state.filteredItems[indexPath.row]
 
-    cell.configureCell(code: item.code, rate: item.rate, country: item.currencyName)
+    cell.configureCell(
+      code: item.code,
+      rate: item.rate,
+      country: item.currencyName,
+      isFavorite: currencyVM.state.isFavorite
+    )
     return cell
   }
 }

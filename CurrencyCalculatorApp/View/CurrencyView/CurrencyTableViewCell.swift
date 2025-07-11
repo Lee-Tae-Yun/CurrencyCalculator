@@ -27,6 +27,10 @@ class CurrencyTableViewCell: UITableViewCell {
     $0.font = .systemFont(ofSize: 16)
   }
 
+  private let favoriteButton = UIButton().then {
+    $0.tintColor = .systemBlue
+  }
+
   override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
     super.init(style: style, reuseIdentifier: reuseIdentifier)
     addViewUI()
@@ -37,7 +41,7 @@ class CurrencyTableViewCell: UITableViewCell {
     fatalError("init(coder:) has not been implemented")
   }
   private func addViewUI() {
-    [countrycodeStackView, rateLabel].forEach { contentView.addSubview($0) }
+    [countrycodeStackView, favoriteButton, rateLabel].forEach { contentView.addSubview($0) }
     [codeLabel, countryLabel].forEach { countrycodeStackView.addArrangedSubview($0) }
   }
   private func cellConstaints() {
@@ -47,14 +51,21 @@ class CurrencyTableViewCell: UITableViewCell {
     }
     rateLabel.snp.makeConstraints {
       $0.leading.greaterThanOrEqualTo(countrycodeStackView.snp.trailing).offset(16)
+      $0.trailing.equalTo(favoriteButton.snp.leading).offset(-16)
+      $0.centerY.equalToSuperview()
+    }
+    favoriteButton.snp.makeConstraints {
       $0.trailing.equalToSuperview().inset(16)
       $0.centerY.equalToSuperview()
     }
   }
 
-  func configureCell(code: String, rate: Double, country: String) {
+  func configureCell(code: String, rate: Double, country: String, isFavorite: Bool) {
     codeLabel.text = code
     countryLabel.text = country
     rateLabel.text = String(format: "%.4f", rate)
+
+    let starImage = isFavorite ? "star.fill" : "star"
+    favoriteButton.setImage(UIImage(systemName: starImage), for: .normal)
   }
 }

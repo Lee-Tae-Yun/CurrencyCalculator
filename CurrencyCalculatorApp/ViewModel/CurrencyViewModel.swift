@@ -19,6 +19,7 @@ final class CurrencyViewModel: ViewModelProtocol {
     var base = CurrencyBase.usd
     var errorMessage: String? = nil
     var isEmptyHidden: Bool = true
+    var isFavorite: Bool = false
   }
   
   var onStateChanged: ((State) -> Void)?
