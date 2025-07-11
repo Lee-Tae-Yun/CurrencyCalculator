@@ -36,3 +36,11 @@ extension CurrencyModel {
       .sorted { $0.code.lowercased() < $1.code.lowercased() }
   }
 }
+
+extension FavoriteCurrency {
+  @nonobjc public class func fetchRequest() -> NSFetchRequest<FavoriteCurrency> {
+    return NSFetchRequest<FavoriteCurrency>(entityName: "isFavorite")
+  }
+
+  @NSManaged public var code: String?
+}

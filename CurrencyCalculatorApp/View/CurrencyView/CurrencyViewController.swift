@@ -70,9 +70,24 @@ extension ViewController: UITableViewDelegate {
 }
 
 extension ViewController: UITableViewDataSource {
+  // 섹션
+  func numberOfSections(in tableView: UITableView) -> Int {
+    return 2
+  }
+  // 섹션 헤드
+  func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    switch section {
+    case 0:
+      return "즐겨찾기"
+    case 1:
+      return "전체 환율"
+    default:
+      return nil
+    }
+  }
   // 총 몇줄인지
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return currencyVM.state.filteredItems.count
+    return section == 0 ? currencyVM.state.favoriteItems.count : currencyVM.state.filteredItems.count
   }
   // 각셀에 어떤 데이터를 넣을껀지.
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -80,7 +95,7 @@ extension ViewController: UITableViewDataSource {
       return UITableViewCell()
     }
 
-    let item = currencyVM.state.filteredItems[indexPath.row]
+    let item = (indexPath.section == 0) ? currencyVM.state.favoriteItems[indexPath.row] : currencyVM.state.filteredItems[indexPath.row]
 
     cell.configureCell(code: item.code, rate: item.rate, country: item.currencyName)
     return cell

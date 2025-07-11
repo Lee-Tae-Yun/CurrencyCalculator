@@ -14,6 +14,7 @@ final class CurrencyViewModel: ViewModelProtocol {
   struct State {
     var items: [CurrencyItem] = []
     var filteredItems: [CurrencyItem] = []
+    var favoriteItems: [CurrencyItem] = []
     var countryName: String? = nil
     var base = CurrencyBase.usd
     var errorMessage: String? = nil
