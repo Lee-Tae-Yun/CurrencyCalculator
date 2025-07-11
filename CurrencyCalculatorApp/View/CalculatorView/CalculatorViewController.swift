@@ -8,9 +8,16 @@ import UIKit
 
 class CalculatorViewController: UIViewController {
   let calculator = CalculatorView()
-  var countryCode: String?
-  var countryName: String?
-  var rate: Double?
+  let calculatorVM: CalculatorViewModel
+
+  init(viewModel: CalculatorViewModel) {
+    self.calculatorVM = viewModel
+    super.init(nibName: nil, bundle: nil)
+  }
+
+  required init?(coder: NSCoder) {
+    fatalError("init(coder:) has not been implemented")
+  }
 
   override func loadView() {
     view = calculator
@@ -18,26 +25,22 @@ class CalculatorViewController: UIViewController {
 
   override func viewDidLoad() {
     super.viewDidLoad()
-    calculator.calcuatorConfigure(code: countryCode ?? "국가코드 없음", country: countryName ?? "국가명 없음")
+    bindViewModel()
     calculator.convertButton.addTarget(self, action: #selector(convertButtonDidTap), for: .touchUpInside)
   }
-
-  @objc private func convertButtonDidTap() {
-    guard let text = calculator.amountTextField.text, !text.isEmpty else {
-      showAlert(message: "금액을 입력해주세요")
-      return
-    }
-    guard let amount = Double(text) else {
-      showAlert(message: "올바른 숫자를 입력해주세요")
-      return
-    }
-    guard let code = countryCode, let transrate = rate else { return }
-    let result = amount * transrate
-    calculator.resultLabel.text = "$" + format2f(amount) + " → " + format2f(result) + " " + code
+  private func bindViewModel() {
+    calculator.calcuatorConfigure(
+      code: calculatorVM.state.countryCode,
+      country: calculatorVM.state.countryName
+    )
   }
-
-  func format2f(_ text: Double) -> String {
-    return String(format: "%.2f", text)
+  @objc private func convertButtonDidTap() {
+    calculatorVM.action(.calculate(text: calculator.amountTextField.text ?? ""))
+    if !self.calculatorVM.state.message.isEmpty {
+      showAlert(message: self.calculatorVM.state.message)
+    } else {
+      calculator.resultLabel.text = calculatorVM.state.result
+    }
   }
 
   private func showAlert(message: String) {
