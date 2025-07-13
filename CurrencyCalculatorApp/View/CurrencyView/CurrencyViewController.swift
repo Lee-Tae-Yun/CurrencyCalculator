@@ -50,8 +50,13 @@ extension ViewController: UITableViewDelegate {
     // 셀 선택됐을때 회색에서 다시 돌아오기
     tableView.deselectRow(at: indexPath, animated: true)
     print("선택한 항목: \(currencyVM.state.filteredItems[indexPath.row])")
+    let item: CurrencyItem
+    if indexPath.section == 0 {
+      item = currencyVM.state.favoriteItems[indexPath.row]
+    } else {
+      item = currencyVM.state.filteredItems[indexPath.row]
+    }
     // 셀 선택 시 계산기 뷰 모델 생성
-    let item = currencyVM.state.filteredItems[indexPath.row]
     let calculatorVM = CalculatorViewModel(
       code: item.code,
       country: item.currencyName,
