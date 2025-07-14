@@ -17,10 +17,15 @@ class ViewController: UIViewController {
 
   override func viewDidLoad() {
     super.viewDidLoad()
+    // TableView, SearchBar delegate 연결
     currencyView.currencyTableView.delegate = self
     currencyView.currencyTableView.dataSource = self
     currencyView.searchBar.delegate = self
+
+    // ViewModel 상태 변화 바인딩
     bindViewModel()
+
+    // 데이터 로드
     currencyVM.action(.loadData)
   }
 
@@ -28,11 +33,16 @@ class ViewController: UIViewController {
     currencyVM.onStateChanged = { [weak self] state in
       guard let self else { return }
 
+      // 에러 메시지 표시
       if let message = state.errorMessage {
         self.showAlert(message: message)
         return
       }
-      self.currencyView.emptyLabel.isHidden = currencyVM.state.isEmptyHidden
+
+      // 검색 결과 유무에 따라 라벨 표시
+      self.currencyView.emptyLabel.isHidden = state.isEmptyHidden
+
+      // 테이블 뷰 리로드
       self.currencyView.currencyTableView.reloadData()
     }
   }
@@ -44,85 +54,80 @@ class ViewController: UIViewController {
   }
 }
 
+// MARK: - UITableViewDelegate
 extension ViewController: UITableViewDelegate {
   // 셀을 선택했을 때
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-    // 셀 선택됐을때 회색에서 다시 돌아오기
     tableView.deselectRow(at: indexPath, animated: true)
-    print("선택한 항목: \(currencyVM.state.filteredItems[indexPath.row])")
-    let item: CurrencyItem
-    if indexPath.section == 0 {
-      item = currencyVM.state.favoriteItems[indexPath.row]
-    } else {
-      item = currencyVM.state.filteredItems[indexPath.row]
-    }
-    // 셀 선택 시 계산기 뷰 모델 생성
+
+    let item = currencyVM.item(at: indexPath)
+    print("선택한 항목: \(item)")
+
     let calculatorVM = CalculatorViewModel(
       code: item.code,
       country: item.currencyName,
       rate: item.rate
     )
     let calculatorVC = CalculatorViewController(viewModel: calculatorVM)
-    // Back버튼 설정
+
+    // 백버튼 제목 설정
     let backBarButton = UIBarButtonItem(title: "환율 정보", style: .plain, target: nil, action: nil)
     navigationItem.backBarButtonItem = backBarButton
 
-    // navigationController가 있다면 push로 전환
     navigationController?.pushViewController(calculatorVC, animated: true)
   }
-  // 셀의 높이
+
+  // 셀 높이
   func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
     60
   }
 }
 
+// MARK: - UITableViewDataSource
 extension ViewController: UITableViewDataSource {
-  // 섹션
+  // 섹션 개수
   func numberOfSections(in tableView: UITableView) -> Int {
-    return 2
+    return currencyVM.numberOfSections()
   }
-  // 섹션 헤드
+
+  // 섹션 타이틀
   func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-    switch section {
-    case 0:
-      return "즐겨찾기"
-    case 1:
-      return "전체 환율"
-    default:
-      return nil
-    }
+    return currencyVM.titleForSection(section)
   }
-  // 총 몇줄인지
+
+  // 섹션별 셀 수
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return section == 0 ? currencyVM.state.favoriteItems.count : currencyVM.state.filteredItems.count
+    return currencyVM.numberOfItems(in: section)
   }
-  // 각셀에 어떤 데이터를 넣을껀지.
+
+  // 셀 구성
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     guard let cell = tableView.dequeueReusableCell(withIdentifier: CurrencyTableViewCell.id, for: indexPath) as? CurrencyTableViewCell else {
       return UITableViewCell()
     }
 
-    let item = (indexPath.section == 0) ? self.currencyVM.state.favoriteItems[indexPath.row] : currencyVM.state.filteredItems[indexPath.row]
-    // 셀 데이터
+    let item = currencyVM.item(at: indexPath)
+
+    // 셀에 데이터 적용
     cell.configureCell(
       code: item.code,
       rate: item.rate,
       country: item.currencyName,
       isFavorite: item.isFavorite
     )
-    // 즐겨찾기 버튼을 눌렀을때 처리
+
+    // 즐겨찾기 버튼 눌렀을 때 처리
     cell.favoriteButtonTapped = { [weak self] in
-      guard let self else { return }
-      let item = (indexPath.section == 0) ? self.currencyVM.state.favoriteItems[indexPath.row] : self.currencyVM.state.filteredItems[indexPath.row]
-      self.currencyVM.action(.toggleFavorite(item.code))
+      self?.currencyVM.action(.toggleFavorite(item.code))
     }
 
     return cell
   }
 }
 
+// MARK: - UISearchBarDelegate
 extension ViewController: UISearchBarDelegate {
-  // 서치바에 입력한 텍스트가 변경될 때 호출
+  // 검색 텍스트 변경 시 필터링
   func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
     currencyVM.action(.filter(searchText: searchText))
   }

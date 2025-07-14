@@ -23,6 +23,7 @@ final class CurrencyViewModel: ViewModelProtocol {
     var base = CurrencyBase.usd
     var errorMessage: String? = nil
     var isEmptyHidden: Bool = true
+    var searchText: String = ""
   }
 
   var onStateChanged: ((State) -> Void)?
@@ -34,6 +35,7 @@ final class CurrencyViewModel: ViewModelProtocol {
     case .loadData:
       loadData()
     case .filter(let searchText):
+      state.searchText = searchText
       filter(searchText: searchText)
     case .toggleFavorite(let code):
       toggleFavorite(code: code)
@@ -48,8 +50,7 @@ final class CurrencyViewModel: ViewModelProtocol {
         self.state.filteredItems = currency.items // 초기에 전체를 보여주기
         self.loadFavoritesFromCoreData()
         self.onStateChanged?(self.state)
-      case .failure(let error):
-        print("error: \(error)")
+      case .failure:
         self.state.errorMessage = "데이터를 불러오지 못했습니다."
         self.onStateChanged?(self.state)
       }
@@ -90,11 +91,11 @@ final class CurrencyViewModel: ViewModelProtocol {
         context.delete(objectToDelete)
         try? context.save()
       }
-
     } else if let itemIndex = state.items.firstIndex(where: { $0.code == code }) {
       // 즐겨찾기 추가
       var item = state.items[itemIndex]
       item.isFavorite = true
+      state.items[itemIndex] = item
       state.favoriteItems.append(item)
 
       // Core Data에 저장
@@ -110,7 +111,6 @@ final class CurrencyViewModel: ViewModelProtocol {
     state.filteredItems = state.items.filter { item in
       !state.favoriteItems.contains(where: { $0.code == item.code })
     }
-
     onStateChanged?(state)
   }
 
@@ -121,21 +121,47 @@ final class CurrencyViewModel: ViewModelProtocol {
     let fetchRequest: NSFetchRequest<FavoriteCurrency> = FavoriteCurrency.fetchRequest()
     // 저장된 즐겨찾기 코드만 추출
     if let savedCodes = try? context.fetch(fetchRequest).compactMap({ $0.code }) {
-      // items 중 저장된 코드와 일치하는 항목만 즐겨찾기 리스트에 담기
-      state.favoriteItems = state.items.filter { savedCodes.contains($0.code) }
-      // isFavorite 값을 true로 바꿔주기
       state.items = state.items.map { item in
         var updatedItem = item
         updatedItem.isFavorite = savedCodes.contains(item.code)
         return updatedItem
       }
-      // 필터된 항목도 갱신
-      state.filteredItems = state.items.filter { item in
-        !savedCodes.contains(item.code)
-      }
-      // 정렬
+      state.favoriteItems = state.items.filter { $0.isFavorite }
       state.favoriteItems.sort { $0.code < $1.code }
+      state.filteredItems = state.items.filter { item in
+        !state.favoriteItems.contains(where: { $0.code == item.code })
+      }
       onStateChanged?(state)
+    }
+  }
+
+  func item(at indexPath: IndexPath) -> CurrencyItem {
+    if !state.searchText.isEmpty {
+      return state.filteredItems[indexPath.row]
+    } else {
+      return indexPath.section == 0
+      ? state.favoriteItems[indexPath.row]
+      : state.filteredItems[indexPath.row]
+    }
+  }
+
+  func numberOfSections() -> Int {
+    return state.searchText.isEmpty ? 2 : 1
+  }
+
+  func numberOfItems(in section: Int) -> Int {
+    if !state.searchText.isEmpty {
+      return state.filteredItems.count
+    } else {
+      return section == 0 ? state.favoriteItems.count : state.filteredItems.count
+    }
+  }
+
+  func titleForSection(_ section: Int) -> String? {
+    if !state.searchText.isEmpty {
+      return "검색 결과"
+    } else {
+      return section == 0 ? "즐겨찾기" : "전체 환율"
     }
   }
 }
