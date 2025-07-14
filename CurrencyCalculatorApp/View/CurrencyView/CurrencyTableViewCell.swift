@@ -11,7 +11,8 @@ import SnapKit
 
 class CurrencyTableViewCell: UITableViewCell {
   static let id = "CurrencyTableViewCell"
-
+  var favoriteButtonTapped: (() -> Void)?
+  
   private let countrycodeStackView = UIStackView().then {
     $0.axis = .vertical
     $0.spacing = 4
@@ -26,18 +27,23 @@ class CurrencyTableViewCell: UITableViewCell {
   private let rateLabel = UILabel().then {
     $0.font = .systemFont(ofSize: 16)
   }
-
+  
+  private let favoriteButton = UIButton(type: .system).then {
+    $0.tintColor = .systemBlue
+  }
+  
   override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
     super.init(style: style, reuseIdentifier: reuseIdentifier)
     addViewUI()
     cellConstaints()
+    favoriteButton.addTarget(self, action: #selector(favoriteButtonDidTap), for: .touchUpInside)
   }
-
+  
   required init?(coder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
   private func addViewUI() {
-    [countrycodeStackView, rateLabel].forEach { contentView.addSubview($0) }
+    [countrycodeStackView, favoriteButton, rateLabel].forEach { contentView.addSubview($0) }
     [codeLabel, countryLabel].forEach { countrycodeStackView.addArrangedSubview($0) }
   }
   private func cellConstaints() {
@@ -47,14 +53,26 @@ class CurrencyTableViewCell: UITableViewCell {
     }
     rateLabel.snp.makeConstraints {
       $0.leading.greaterThanOrEqualTo(countrycodeStackView.snp.trailing).offset(16)
+      $0.trailing.equalTo(favoriteButton.snp.leading).offset(-16)
+      $0.centerY.equalToSuperview()
+    }
+    favoriteButton.snp.makeConstraints {
       $0.trailing.equalToSuperview().inset(16)
       $0.centerY.equalToSuperview()
     }
   }
-
-  func configureCell(code: String, rate: Double, country: String) {
+  
+  func configureCell(code: String, rate: Double, country: String, isFavorite: Bool) {
     codeLabel.text = code
     countryLabel.text = country
     rateLabel.text = String(format: "%.4f", rate)
+    
+    let starImage = isFavorite ? "star.fill" : "star"
+    favoriteButton.setImage(UIImage(systemName: starImage), for: .normal)
   }
+  
+  @objc private func favoriteButtonDidTap() {
+    favoriteButtonTapped?() // 외부로 신호만 보냄
+  }
+  
 }
