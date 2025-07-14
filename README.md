@@ -15,36 +15,41 @@
 ---
 
 ## 📁 프로젝트 구조
-CurrencyCalculatorApp/
-├── Application/
-│   ├── AppDelegate.swift
-│   ├── SceneDelegate.swift
-│   ├── Assets.xcassets
-│   ├── Info.plist
-│   └── LaunchScreen.storyboard
-├── CoreData/
-│   └── CurrencyCalculatorApp.xcdatamodeld
-├── Model/
-│   ├── CoreData/
-│   │   ├── FavoriteCurrency+CoreDataClass.swift
-│   │   └── FavoriteCurrency+Properties.swift
-│   ├── CounteyModel.swift
-│   └── CurrencyModel.swift
-├── Network/
-│   └── CurrencyService.swift
-├── Protocol/
-│   └── ViewModelProtocol.swift
-├── View/
-│   ├── CalculatorView/
-│   │   ├── CalculatorView.swift
-│   │   └── CalculatorViewController.swift
-│   └── CurrencyView/
-│       ├── CurrencyTableViewCell.swift
-│       ├── CurrencyView.swift
-│       └── CurrencyViewController.swift
-├── ViewModel/
-│   ├── CalculatorViewModel.swift
-│   └── CurrencyViewModel.swift
+CurrencyCalculatorApp/  
+├── Application/  
+│   ├── AppDelegate.swift  
+│   ├── SceneDelegate.swift  
+│   ├── Assets.xcassets  
+│   ├── Info.plist  
+│   └── LaunchScreen.storyboard  
+├── CoreData/  
+│   └── CurrencyCalculatorApp.xcdatamodeld  
+├── Model/  
+│   ├── CoreData/  
+│   │   ├── FavoriteCurrency+CoreDataClass.swift  
+│   │   └── FavoriteCurrency+Properties.swift  
+│   ├── CounteyModel.swift  
+│   └── CurrencyModel.swift  
+├── Network/  
+│   └── CurrencyService.swift  
+├── Protocol/  
+│   └── ViewModelProtocol.swift  
+├── View/  
+│   ├── CalculatorView/  
+│   │   ├── CalculatorView.swift  
+│   │   └── CalculatorViewController.swift  
+│   └── CurrencyView/  
+│       ├── CurrencyTableViewCell.swift  
+│       ├── CurrencyView.swift  
+│       └── CurrencyViewController.swift  
+├── ViewModel/  
+│   ├── CalculatorViewModel.swift  
+│   └── CurrencyViewModel.swift  
 
 ## 📸 스크린샷
+
+<img width="1206" height="2622" alt="Simulator Screenshot - iPhone 16 Pro - 2025-07-14 at 11 08 53" src="https://github.com/user-attachments/assets/7d5066de-ab78-47c7-95cd-5ad49688857f" />
+
+<img width="1206" height="2622" alt="Simulator Screenshot - iPhone 16 Pro - 2025-07-14 at 11 09 14" src="https://github.com/user-attachments/assets/19781474-3edd-450f-a882-1a26acd6a52f" />
+
 
